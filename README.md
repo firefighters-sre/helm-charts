@@ -2,6 +2,8 @@
 
 This repository contains a collection of Helm charts for deploying applications on Kubernetes. Helm is a package manager for Kubernetes that simplifies the process of defining, installing, and managing Kubernetes applications.
 
+https://firefighters-sre.github.io/helm-charts/
+
 ## Prerequisites
 
 Before you can use the charts in this repository, you need to have Helm installed. If you haven't already installed Helm, please refer to [Helm's documentation](https://helm.sh/docs) for instructions on getting started.
