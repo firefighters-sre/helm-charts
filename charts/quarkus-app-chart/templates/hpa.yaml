@@ -3,9 +3,9 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "concierge-app.fullname" . }}
+  name: {{ include "quarkus-app.fullname" . }}
   labels:
-    {{- include "concierge-app.labels" . | nindent 4 }}
+    {{- include "quarkus-app.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     {{- if .Values.deploymentConfig }}
@@ -15,7 +15,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     {{- end }}
-    name: {{ include "concierge-app.fullname" . }}
+    name: {{ include "quarkus-app.fullname" . }}
   minReplicas: {{ .Values.replicas.min }}
   maxReplicas: {{ .Values.replicas.max }}
   metrics:

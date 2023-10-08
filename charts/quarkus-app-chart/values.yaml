@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 # General application details
-appName: generic-app
-appDescription: A generic application description
+appName: quarkus-app
+appDescription: Application description
 
 # Kubernetes details
 namespace: helm-test
@@ -17,7 +17,7 @@ replicas:
 # Image details
 image_repository: quay.io
 image_name: generic-app
-image_namespace: quarkus-dev
+image_namespace: imagen-namespace
 image_version: latest
 
 # Build configuration

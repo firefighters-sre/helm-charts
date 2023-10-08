@@ -1,0 +1,14 @@
+{{- if .Values.pdb.enabled }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "quarkus-app.fullname" . }}
+  labels:
+    {{- include "quarkus-app.labels" . | nindent 4 }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      deploymentconfig: {{ include "quarkus-app.fullname" . }}
+{{ end }}

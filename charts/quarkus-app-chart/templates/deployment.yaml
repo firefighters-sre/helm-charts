@@ -1,26 +1,25 @@
-{{- if .Values.deploymentConfig }}
+{{- if (ne .Values.deploymentConfig true) }}
 ---
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: {{ include "concierge-app.fullname" . }}
+  name: {{ include "quarkus-app.fullname" . }}
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"{{ include "quarkus-app.fullname" . }}:{{ .Values.image_version }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"quarkus-app\")].image"}]'
   labels:
-    {{- include "concierge-app.labels" . | nindent 4 }}
+    {{- include "quarkus-app.labels" . | nindent 4 }}
 spec:
+  progressDeadlineSeconds: 600
   replicas: {{ .Values.replicas.min }}
   revisionHistoryLimit: 10
   selector:
-    {{- include "concierge-app.selectorLabels" . | nindent 4 }}
+    matchLabels:
+      {{- include "quarkus-app.selectorLabels" . | nindent 6 }}
   strategy:
-    activeDeadlineSeconds: 21600
-    resources: {}
-    rollingParams:
-      intervalSeconds: 1
+    rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
+    type: RollingUpdate
   template:
     metadata:
       annotations:
@@ -35,9 +34,8 @@ spec:
           tracing:
             sampling: 100.0
         {{- end}}
-      creationTimestamp: null
       labels:
-        {{- include "concierge-app.selectorLabels" . | nindent 8 }}
+        {{- include "quarkus-app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - env:
@@ -45,9 +43,9 @@ spec:
               value: prod
             - name: QUARKUS_LOG_LEVEL
               value: INFO
-          image: ''
+          image: ' '
           imagePullPolicy: Always
-          name: {{ include "concierge-app.name" . }}
+          name: {{ include "quarkus-app.name" . }}
           livenessProbe:
             httpGet:
               path: /q/health/live
@@ -62,13 +60,6 @@ spec:
               protocol: TCP
             - containerPort: 8443
               protocol: TCP
-          resources:
-            limits:
-              cpu: '600m'
-              memory: 500Mi
-            requests:
-              cpu: '100m'
-              memory: 50Mi
           readinessProbe:
             httpGet:
               path: /q/health/ready
@@ -78,6 +69,13 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
+          resources:
+            limits:
+              cpu: '600m'
+              memory: 1000Mi
+            requests:
+              cpu: '100m'
+              memory: 100Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           securityContext:
@@ -90,18 +88,6 @@ spec:
               - ALL
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
+      schedulerName: default-scheduler 
       terminationGracePeriodSeconds: 30
-  test: false
-  triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - {{ include "concierge-app.name" . }}
-        from:
-          kind: ImageStreamTag
-          name: {{ include "concierge-app.fullname" . }}:{{ .Values.image_version }}
-        lastTriggeredImage: ""
-      type: ImageChange
-{{- end }}
+{{ end }}

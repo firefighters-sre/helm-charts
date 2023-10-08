@@ -7,20 +7,20 @@ metadata:
     app.openshift.io/vcs-ref: ''
     app.openshift.io/vcs-uri: {{ .Values.buildconfig.git.uri | quote }}
     openshift.io/generated-by: OpenShiftWebConsole
-  name: {{ include "concierge-app.fullname" . }}
+  name: {{ include "quarkus-app.fullname" . }}
   labels:
-    app: {{ include "concierge-app.fullname" . }}
-    app.kubernetes.io/component: {{ include "concierge-app.fullname" . }}
-    app.kubernetes.io/instance: {{ include "concierge-app.fullname" . }}
-    app.kubernetes.io/name: {{ include "concierge-app.fullname" . }}
-    app.kubernetes.io/part-of: {{ include "concierge-app.fullname" . }}
+    app: {{ include "quarkus-app.fullname" . }}
+    app.kubernetes.io/component: {{ include "quarkus-app.fullname" . }}
+    app.kubernetes.io/instance: {{ include "quarkus-app.fullname" . }}
+    app.kubernetes.io/name: {{ include "quarkus-app.fullname" . }}
+    app.kubernetes.io/part-of: {{ include "quarkus-app.fullname" . }}
     app.openshift.io/runtime: {{ .Values.buildconfig.runtime }}
     app.openshift.io/runtime-version: {{ .Values.buildconfig.runtimeVersion }}
 spec:
   output:
     to:
       kind: ImageStreamTag
-      name: '{{ include "concierge-app.fullname" . }}:latest'
+      name: '{{ include "quarkus-app.fullname" . }}:latest'
   strategy:
     type: Source
     sourceStrategy:
@@ -37,11 +37,11 @@ spec:
     - type: Generic
       generic:
         secretReference:
-          name: {{ include "concierge-app.fullname" . }}-generic-webhook-secret
+          name: {{ include "quarkus-app.fullname" . }}-generic-webhook-secret
     - type: GitHub
       github:
         secretReference:
-          name: {{ include "concierge-app.fullname" . }}-github-webhook-secret
+          name: {{ include "quarkus-app.fullname" . }}-github-webhook-secret
     - type: ImageChange
     - type: ConfigChange
   runPolicy: Serial
