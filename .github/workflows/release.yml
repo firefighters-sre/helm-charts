@@ -1,4 +1,4 @@
-name: Helm Chart Release
+name: Release Charts
 
 on:
   push:
@@ -9,25 +9,17 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Helm
-        uses: azure/setup-helm@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          version: 'v3.5.4'
+          fetch-depth: 0
 
-      - name: Package Helm Chart
+      - name: Configure Git
         run: |
-          mkdir -p gh-pages
-          mv charts/*.tgz gh-pages/
-          helm repo index gh-pages --url https://firefighters-sre.github.io/helm-charts/
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Commit and Push Helm Chart
-        run: |
-          git config --global user.email "youremail@example.com"
-          git config --global user.name "Your Name"
-          git checkout gh-pages
-          git add .
-          git commit -m "Update Helm chart"
-          git push origin gh-pages
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
