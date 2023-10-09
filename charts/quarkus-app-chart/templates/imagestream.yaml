@@ -5,7 +5,7 @@ apiVersion: image.openshift.io/v1
 metadata:
   annotations:
     app.openshift.io/vcs-ref: ''
-    app.openshift.io/vcs-uri: {{ .Values.buildconfig.git.uri | quote }}
+    app.openshift.io/vcs-uri: {{ .Values.buildconfig.git.repo | quote }}
   name: {{ include "quarkus-app.fullname" . }}
   labels:
     app: {{ include "quarkus-app.fullname" . }}

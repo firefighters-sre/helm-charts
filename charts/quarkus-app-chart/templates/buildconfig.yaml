@@ -5,7 +5,7 @@ kind: BuildConfig
 metadata:
   annotations:
     app.openshift.io/vcs-ref: ''
-    app.openshift.io/vcs-uri: {{ .Values.buildconfig.git.uri | quote }}
+    app.openshift.io/vcs-uri: {{ .Values.buildconfig.git.repo | quote }}
     openshift.io/generated-by: OpenShiftWebConsole
   name: {{ include "quarkus-app.fullname" . }}
   labels:
