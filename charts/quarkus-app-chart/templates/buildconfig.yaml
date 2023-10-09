@@ -31,7 +31,7 @@ spec:
   source:
     type: Git
     git:
-      uri: {{ .Values.buildconfig.git.uri | quote }}
+      uri: {{ .Values.buildconfig.git.repo | quote }}
     contextDir: /
   triggers:
     - type: Generic
