@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: {{ include "quarkus-app.fullname" . }}
   annotations:
-    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"{{ include "quarkus-app.fullname" . }}:{{ .Values.image_version }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"quarkus-app\")].image"}]'
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"{{ include "quarkus-app.fullname" . }}:{{ .Values.image_version }}"},"fieldPath":"spec.template.spec.containers[?(@.name==\"{{ include "quarkus-app.fullname" . }}\")].image"}]'
   labels:
     {{- include "quarkus-app.labels" . | nindent 4 }}
 spec:
