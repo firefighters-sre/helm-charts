@@ -2,8 +2,8 @@ apiVersion: v2
 name: quarkus-app-chart
 description: quarkus-app-chart
 type: application
-version: 1.0.3
-appVersion: 1.0.3
+version: 1.0.4
+appVersion: 1.0.4
 kubeVersion: '>=1.11.0-0'
 home: https://firefighters-sre.github.io/helm-charts/
 keywords:

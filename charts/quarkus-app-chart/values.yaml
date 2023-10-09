@@ -4,6 +4,7 @@
 
 # Kubernetes details
 route: false
+deployment: true
 deploymentConfig: false
 replicas:
   min: 1
