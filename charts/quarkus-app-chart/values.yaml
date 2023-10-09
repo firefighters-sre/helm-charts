@@ -2,12 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# General application details
-appName: quarkus-app
-appDescription: Application description
-
 # Kubernetes details
-namespace: helm-test
 route: false
 deploymentConfig: false
 replicas:
@@ -39,15 +34,6 @@ prometheus:
     enabled: false
   podmonitor:
     enabled: false
-  slos:
-    enabled: false
-    severity: warning
-  slas:
-    enabled: false
-    severity: critical
-  fireincident:
-    slos: false
-    slas: false
 
 # Autoscaling
 hpa:
