@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  quarkus-app-chart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-10-09T00:35:15.45538956Z"
+    description: quarkus-app-chart
+    digest: 6ae9a134bce07036d64507f1bf2a3e75d46a58f7e3d3e6ad2072509322170b70
+    home: https://firefighters-sre.github.io/helm-charts/
+    keywords:
+    - sre
+    - quarkus
+    kubeVersion: '>=1.11.0-0'
+    maintainers:
+    - name: gsampaio
+    name: quarkus-app-chart
+    type: application
+    urls:
+    - https://github.com/firefighters-sre/helm-charts/releases/download/quarkus-app-chart-1.0.0/quarkus-app-chart-1.0.0.tgz
+    version: 1.0.0
+generated: "2023-10-09T00:35:15.45539416Z"
