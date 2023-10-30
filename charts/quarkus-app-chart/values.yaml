@@ -35,6 +35,12 @@ prometheus:
     enabled: false
   podmonitor:
     enabled: false
+  slos:
+    enabled: false
+    severity: warning
+  slas:
+    enabled: false
+    severity: critical
 
 # Autoscaling
 hpa:
